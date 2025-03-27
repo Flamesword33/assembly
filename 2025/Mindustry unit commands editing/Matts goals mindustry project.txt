@@ -1,0 +1,34 @@
+Overarching goal, Matt wants to combine all files.
+
+Turret control  --> commander
+Kiting protocal --> all
+Unit commander  --> finished product for commander
+Unit army       --> finished product for army 
+
+Kiting protocal:
+Someone found way to make units backpedal and shoot. 
+Please tell Matt how.
+
+arc turret file: 
+most of file is redundant only keep what pertains to arc turret
+
+Last time he tried combining files the unit faced decision paralysis. Can process 1500 commands a second. 
+
+Current files work but Matt wants a combine job. 
+
+Goals 
+ Unit command;
+1 Fire at target
+2 Back away from target
+3 Arc sets regroup point
+4 move to regroup when no targets
+
+
+Unit army;
+1 rally at command
+2 commander determines target location (army unit sensors just suck)
+3 approach target
+4 fire at target
+        b. fall back to max range if low HP
+5 back away from target
+6 regroup at commander if no targets 

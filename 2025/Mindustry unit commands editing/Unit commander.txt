@@ -1,0 +1,43 @@
+ubind @nova
+sensor flag @unit @flag
+jump 0 notEqual flag 0
+set found 0
+uradar enemy ground any distance turret1 1 target
+jump 29 notEqual target null
+uradar enemy any any distance turret1 1 target
+jump 29 notEqual target null
+sensor unit_x @unit @x
+sensor unit_y @unit @y
+ulocate building turret true @copper targ_x targ_y found building
+jump 18 equal found false
+op sub y_diff unit_y targ_y
+op sub x_diff unit_x targ_x
+op abs x_diff x_diff unit_x
+op abs y_diff y_diff unit_x
+op add distance y_diff x_diff
+jump 29 lessThanEq distance 24
+ulocate building core true @copper targ_x targ_y found building
+jump 26 equal found false
+op sub y_diff unit_y targ_y
+op sub x_diff unit_x targ_x
+op abs x_diff x_diff unit_x
+op abs y_diff y_diff unit_x
+op add distance y_diff x_diff
+jump 29 lessThanEq distance 24
+ucontrol target 0 0 0 0 0
+ucontrol pathfind 0 0 0 0 0
+end
+set min_dist 23
+sensor max_health @unit @maxHealth
+sensor health @unit @health
+op div percent_health health max_health
+jump 35 greaterThan percent_health .5
+op mul min_dist min_dist 2
+jump 41 equal target null
+sensor enemy_x target @x
+sensor enemy_y target @y
+ucontrol targetp target 1 1 0 0
+ucontrol approach enemy_x enemy_y min_dist 0 0
+end
+ucontrol target targ_x targ_y 1 0 0
+ucontrol approach targ_x targ_y min_dist 0 0 

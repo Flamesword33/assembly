@@ -1,0 +1,36 @@
+ubind @pulsar
+sensor flag @unit @flag
+jump 0 notEqual flag 0
+uradar enemy ground any distance turret1 1 target
+jump 17 notEqual target null
+uradar enemy any any distance turret1 1 target
+jump 17 notEqual target null
+ucontrol boost 1 scouted_y 4 0 0
+ucontrol target 0 0 0 0 0
+read scouted_x cell1 0
+read scouted_y cell1 1
+op add positive scouted_x scouted_y
+jump 18 greaterThan positive 0
+read leader_x cell1 2
+read leader_y cell1 3
+ucontrol approach leader_x leader_y 4 0 0
+end
+ucontrol boost 0 scouted_y 4 0 0
+set min_dist 8
+sensor max_health @unit @maxHealth
+sensor health @unit @health
+jump 25 notEqual target null
+set target_x scouted_x
+set target_y scouted_y
+jump 27 always target null
+sensor target_x target @x
+sensor target_y target @y
+op div percent_health health max_health
+jump 32 greaterThan percent_health .5
+read target_x cell2 2
+read target_y cell2 3
+set min_dist 4
+ucontrol targetp target 1 1 0 0
+ucontrol approach target_x target_y min_dist 0 0
+end (edited)
+[12:40 AM]
