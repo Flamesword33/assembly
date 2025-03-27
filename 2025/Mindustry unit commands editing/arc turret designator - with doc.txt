@@ -1,3 +1,17 @@
+Start: op mul xy_coordinates @thisx 1000
+Scan_loop: op add xy_coordinates @thisy xy_coordinates
+ubind @mega
+op add k k 1
+sensor flagged_unit @unit @flag
+jump Break_scan_loop equal flagged_unit xy_coordinates
+jump Scan_loop lessThan k 30
+sensor commanded_unit @unit @controlled
+jump Scan_loop notEqual commanded_unit 0
+Break_scan_loop: ucontrol flag xy_coordinates 0 0 0 0
+set k 0
+sensor is_arc1_shooting arc1 @shooting
+sensor is_unit_dead @unit @dead
+jump Start equal is_unit_dead 1
 jump 17 notEqual is_arc1_shooting 1
 sensor x arc1 @shootX
 sensor y arc1 @shootY
