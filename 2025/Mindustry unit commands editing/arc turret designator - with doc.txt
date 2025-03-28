@@ -9,60 +9,60 @@ sensor commanded_unit @unit @controlled
 jump Scan_loop notEqual commanded_unit 0
 ucontrol flag xy_coordinates 0 0 0 0
 Break_scan_loop: set k 0
-sensor is_arc1_shooting arc1 @shooting  ##arc1 --> linked turret
+sym3: sensor is_arc1_shooting arc1 @shooting  ##arc1 --> linked turret
 sensor is_unit_dead @unit @dead
 jump Start equal is_unit_dead 1
-jump 17 notEqual is_arc1_shooting 1
-sensor x arc1 @shootX
-sensor y arc1 @shootY
-jump 19 notEqual x 0
-jump 11 always x 0
-set c1 container1
+jump sym1 notEqual is_arc1_shooting 1
+sensor target_x arc1 @shootX
+sensor target_y arc1 @shootY
+sym1: jump sym2 notEqual target_x 0
+jump sym3 always target_x 0
+sym2: set c1 container1
 set c2 container2
 sensor p @unit @payloadType
-jump 46 equal p 0
-jump 33 notEqual c1 0
-jump 41 notEqual c2 0
+jump sym4 equal p 0
+jump sym5 notEqual c1 0
+jump sym6 notEqual c2 0
 op add xx @thisx 2
 set yy @thisy
 ucontrol move xx yy 0 0 0
 ucontrol within xx yy 0.2 is_unit_dead 0
-jump 31 equal is_unit_dead 1
-jump 11 always is_unit_dead 1
-ucontrol payDrop c 0 0 0 0
-jump 11 always is_unit_dead 1
-op add xx @thisx 4
+jump sym7 equal is_unit_dead 1
+jump Break_scan_loop always is_unit_dead 1
+sym7: ucontrol payDrop c 0 0 0 0
+jump Break_scan_loop always is_unit_dead 1
+sym5: op add xx @thisx 4
 set yy @thisy
 ucontrol move xx yy 0 0 0
 ucontrol within xx yy 0.2 is_unit_dead 0
-jump 39 equal is_unit_dead 1
-jump 11 always is_unit_dead 1
+jump sym8 equal is_unit_dead 1
+jump Break_scan_loop always is_unit_dead 1
+sym8: ucontrol payDrop c 0 0 0 0
+jump Break_scan_loop always is_unit_dead 1
+sym6: ucontrol move target_x target_y 0 0 0
+ucontrol within target_x target_y 0.2 is_unit_dead 0
+jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payDrop c 0 0 0 0
-jump 11 always is_unit_dead 1
-ucontrol move x y 0 0 0
-ucontrol within x y 0.2 is_unit_dead 0
-jump 11 notEqual is_unit_dead 1
-ucontrol payDrop c 0 0 0 0
-jump 11 always is_unit_dead 1
-jump 54 notEqual c1 0
+jump Break_scan_loop always is_unit_dead 1
+sym4: jump sym9 notEqual c1 0
 sensor xx c2 @x
 sensor yy c2 @y
 ucontrol move xx yy 0 0 0
 ucontrol within xx yy 0.2 is_unit_dead 0
-jump 11 notEqual is_unit_dead 1
+jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payTacounter_ke 0 0 0 0 0
-jump 11 always x false
-jump 64 notEqual c2 0
-ucontrol move x y 0 0 0
-ucontrol getBlocommanded_unitounter_k x y 0 c 0
+jump Break_scan_loop always target_x false
+sym9: jump Sensor_setup notEqual c2 0
+ucontrol move target_x target_y 0 0 0
+ucontrol getBlocommanded_unitounter_k target_x target_y 0 c 0
 sensor t c @totalItems
-jump 60 equal t 0
-jump 11 always x false
-ucontrol within x y 0.2 is_unit_dead 0
-jump 11 notEqual is_unit_dead 1
+jump sym10 equal t 0
+jump Break_scan_loop always target_x false
+sym10: ucontrol within target_x target_y 0.2 is_unit_dead 0
+jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payTacounter_ke 0 0 0 0 0
-jump 0 always x false
-sensor yy c1 @y
+jump Start always target_x false
+Sensor_setup: sensor yy c1 @y
 sensor xx c1 @x
 ucontrol move xx yy 0 0 0
 sensor t c1 @totalitems
@@ -87,28 +87,28 @@ sensor ttu c1 @tungsten
 sensor to c1 @oxide
 sensor tca c1 @carbide
 set T 300
-jump 110 equal tcp T
-jump 110 equal tl T
-jump 110 equal tti T
-jump 110 equal tth T
-jump 110 equal tm T
-jump 110 equal tg T
-jump 110 equal tsa T
-jump 110 equal tcl T
-jump 110 equal tsc T
-jump 110 equal tsi T
-jump 110 equal tpl T
-jump 110 equal tph T
-jump 110 equal tsu T
-jump 110 equal tsp T
-jump 110 equal tb T
-jump 110 equal tpy T
-jump 110 equal tbe T
-jump 110 equal tto T
-jump 110 equal to T
-jump 110 equal tca T
-jump 11 always tca T
-ucontrol within xx yy 0.2 is_unit_dead 0
-jump 11 notEqual is_unit_dead 1
+jump Final_dead_check equal tcp T
+jump Final_dead_check equal tl T
+jump Final_dead_check equal tti T
+jump Final_dead_check equal tth T
+jump Final_dead_check equal tm T
+jump Final_dead_check equal tg T
+jump Final_dead_check equal tsa T
+jump Final_dead_check equal tcl T
+jump Final_dead_check equal tsc T
+jump Final_dead_check equal tsi T
+jump Final_dead_check equal tpl T
+jump Final_dead_check equal tph T
+jump Final_dead_check equal tsu T
+jump Final_dead_check equal tsp T
+jump Final_dead_check equal tb T
+jump Final_dead_check equal tpy T
+jump Final_dead_check equal tbe T
+jump Final_dead_check equal tto T
+jump Final_dead_check equal to T
+jump Final_dead_check equal tca T
+jump Break_scan_loop always tca T
+Final_dead_check: ucontrol within xx yy 0.2 is_unit_dead 0
+jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payTacounter_ke 0 0 0 0 0
-jump 11 always t T
+jump Break_scan_loop always t T
