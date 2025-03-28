@@ -86,29 +86,29 @@ sensor tbe c1 @beryllium
 sensor ttu c1 @tungsten
 sensor to c1 @oxide
 sensor tca c1 @carbide
-set T 300
-jump Final_dead_check equal tcp T
-jump Final_dead_check equal tl T
-jump Final_dead_check equal tti T
-jump Final_dead_check equal tth T
-jump Final_dead_check equal tm T
-jump Final_dead_check equal tg T
-jump Final_dead_check equal tsa T
-jump Final_dead_check equal tcl T
-jump Final_dead_check equal tsc T
-jump Final_dead_check equal tsi T
-jump Final_dead_check equal tpl T
-jump Final_dead_check equal tph T
-jump Final_dead_check equal tsu T
-jump Final_dead_check equal tsp T
-jump Final_dead_check equal tb T
-jump Final_dead_check equal tpy T
-jump Final_dead_check equal tbe T
-jump Final_dead_check equal tto T
-jump Final_dead_check equal to T
-jump Final_dead_check equal tca T
-jump Break_scan_loop always tca T
+set const300 300
+jump Final_dead_check equal tcp const300
+jump Final_dead_check equal tl const300
+jump Final_dead_check equal tti const300
+jump Final_dead_check equal tth const300
+jump Final_dead_check equal tm const300
+jump Final_dead_check equal tg const300
+jump Final_dead_check equal tsa const300
+jump Final_dead_check equal tcl const300
+jump Final_dead_check equal tsc const300
+jump Final_dead_check equal tsi const300
+jump Final_dead_check equal tpl const300
+jump Final_dead_check equal tph const300
+jump Final_dead_check equal tsu const300
+jump Final_dead_check equal tsp const300
+jump Final_dead_check equal tb const300
+jump Final_dead_check equal tpy const300
+jump Final_dead_check equal tbe const300
+jump Final_dead_check equal tto const300
+jump Final_dead_check equal to const300
+jump Final_dead_check equal tca const300
+jump Break_scan_loop always tca const300
 Final_dead_check: ucontrol within xx yy 0.2 is_unit_dead 0
 jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payTacounter_ke 0 0 0 0 0
-jump Break_scan_loop always t T
+jump Break_scan_loop always t const300
