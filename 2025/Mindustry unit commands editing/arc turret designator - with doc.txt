@@ -1,69 +1,65 @@
+set true 1
+set false 0
 Start: op mul xy_coordinates @thisx 1000
 op add xy_coordinates @thisy xy_coordinates
-Scan_loop: ubind @mega
+Find_unit: ubind @mega
 op add k k 1
 sensor flagged_unit @unit @flag
-jump Break_scan_loop equal flagged_unit xy_coordinates
-jump Scan_loop lessThan k 30
+jump Unit_found equal flagged_unit xy_coordinates
+jump Find_unit lessThan k 30
 sensor commanded_unit @unit @controlled
-jump Scan_loop notEqual commanded_unit 0
+jump Find_unit notEqual commanded_unit 0
 ucontrol flag xy_coordinates 0 0 0 0
-Break_scan_loop: set k 0
-sym3: sensor is_arc1_shooting arc1 @shooting  ##arc1 --> linked turret
+Unit_found: set k 0
+Main: sensor is_arc1_shooting arc1 @shooting
 sensor is_unit_dead @unit @dead
 jump Start equal is_unit_dead 1
-jump sym1 notEqual is_arc1_shooting 1
+jump Main notEqual is_arc1_shooting 1
 sensor target_x arc1 @shootX
 sensor target_y arc1 @shootY
-sym1: jump sym2 notEqual target_x 0
-jump sym3 always target_x 0
-sym2: set c1 container1
-set c2 container2
-sensor p @unit @payloadType
-jump sym4 equal p 0
-jump sym5 notEqual c1 0
-jump sym6 notEqual c2 0
+jump Main equal target_x 0
+sensor unit_payload @unit @payloadType
+jump Payload_empty equal unit_payload 0
+jump Container1_full notEqual container1 0
+jump Container2_full notEqual container2 0
 op add xx @thisx 2
 set yy @thisy
 ucontrol move xx yy 0 0 0
-ucontrol within xx yy 0.2 is_unit_dead 0
-jump sym7 equal is_unit_dead 1
-jump Break_scan_loop always is_unit_dead 1
-sym7: ucontrol payDrop c 0 0 0 0
-jump Break_scan_loop always is_unit_dead 1
-sym5: op add xx @thisx 4
+ucontrol within xx yy 0.2 is_unit_dead false
+jump Main equal is_unit_dead false              
+ucontrol payDrop c 0 0 0 0
+jump Main always           
+Container1_full: op add xx @thisx 4
 set yy @thisy
 ucontrol move xx yy 0 0 0
 ucontrol within xx yy 0.2 is_unit_dead 0
-jump sym8 equal is_unit_dead 1
-jump Break_scan_loop always is_unit_dead 1
-sym8: ucontrol payDrop c 0 0 0 0
-jump Break_scan_loop always is_unit_dead 1
-sym6: ucontrol move target_x target_y 0 0 0
-ucontrol within target_x target_y 0.2 is_unit_dead 0
-jump Break_scan_loop notEqual is_unit_dead 1
+jump Main equal is_unit_dead false
 ucontrol payDrop c 0 0 0 0
-jump Break_scan_loop always is_unit_dead 1
-sym4: jump sym9 notEqual c1 0
-sensor xx c2 @x
-sensor yy c2 @y
+jump Main always
+Container2_full: ucontrol move target_x target_y 0 0 0
+ucontrol within target_x target_y 0.2 is_unit_dead false
+jump Main equal is_unit_dead false
+ucontrol payDrop c 0 0 0 0
+jump Main always
+Payload_empty: jump P0_container1_full notEqual container1 0
+sensor xx container2 @x
+sensor yy container2 @y
 ucontrol move xx yy 0 0 0
-ucontrol within xx yy 0.2 is_unit_dead 0
-jump Break_scan_loop notEqual is_unit_dead 1
+ucontrol within xx yy 0.2 is_unit_dead false
+jump Main equal is_unit_dead false
 ucontrol payTacounter_ke 0 0 0 0 0
-jump Break_scan_loop always target_x false
-sym9: jump Sensor_setup notEqual c2 0
+jump Main always
+P0_container1_full: jump Sensor_setup notEqual container2 0
 ucontrol move target_x target_y 0 0 0
 ucontrol getBlocommanded_unitounter_k target_x target_y 0 c 0
-sensor t c @totalItems
-jump sym10 equal t 0
-jump Break_scan_loop always target_x false
-sym10: ucontrol within target_x target_y 0.2 is_unit_dead 0
-jump Break_scan_loop notEqual is_unit_dead 1
+sensor total_items c @totalItems
+jump Main notEqual total_items 0
+ucontrol within target_x target_y 0.2 is_unit_dead false
+jump Main notEqual is_unit_dead true
 ucontrol payTacounter_ke 0 0 0 0 0
-jump Start always target_x false
-Sensor_setup: sensor yy c1 @y
-sensor xx c1 @x
+jump Start always
+Sensor_setup: sensor yy container1 @y
+sensor xx container1 @x
 ucontrol move xx yy 0 0 0
 sensor t c1 @totalitems
 sensor tcp c1 @copper
@@ -111,4 +107,4 @@ jump Break_scan_loop always tca const300
 Final_dead_check: ucontrol within xx yy 0.2 is_unit_dead 0
 jump Break_scan_loop notEqual is_unit_dead 1
 ucontrol payTacounter_ke 0 0 0 0 0
-jump Break_scan_loop always t const300
+jump Main always
