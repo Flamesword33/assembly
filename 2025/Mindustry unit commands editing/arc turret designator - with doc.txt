@@ -61,50 +61,50 @@ jump Start always
 Sensor_setup: sensor yy container1 @y
 sensor xx container1 @x
 ucontrol move xx yy 0 0 0
-sensor t c1 @totalitems
-sensor tcp c1 @copper
-sensor tl c1 @lead
-sensor tti c1 @titanium
-sensor tth c1 @thorium
-sensor tm c1 @metaglass
-sensor tg c1 @graphite
-sensor tsa c1 @sand
-sensor tcl c1 @coal
-sensor tsc c1 @scrap
-sensor tsi c1 @silicon
-sensor tpl c1 @plastanium
-sensor tph c1 @phase-fabric
-sensor tsu c1 @surge-alloy
-sensor tsp c1 @spore-pod
-sensor tb c1 @blast-compound
-sensor tpy c1 @pyratite
-sensor tbe c1 @beryllium
-sensor ttu c1 @tungsten
-sensor to c1 @oxide
-sensor tca c1 @carbide
-set const300 300
-jump Final_dead_check equal tcp const300
-jump Final_dead_check equal tl const300
-jump Final_dead_check equal tti const300
-jump Final_dead_check equal tth const300
-jump Final_dead_check equal tm const300
-jump Final_dead_check equal tg const300
-jump Final_dead_check equal tsa const300
-jump Final_dead_check equal tcl const300
-jump Final_dead_check equal tsc const300
-jump Final_dead_check equal tsi const300
-jump Final_dead_check equal tpl const300
-jump Final_dead_check equal tph const300
-jump Final_dead_check equal tsu const300
-jump Final_dead_check equal tsp const300
-jump Final_dead_check equal tb const300
-jump Final_dead_check equal tpy const300
-jump Final_dead_check equal tbe const300
-jump Final_dead_check equal tto const300
-jump Final_dead_check equal to const300
-jump Final_dead_check equal tca const300
-jump Break_scan_loop always tca const300
-Final_dead_check: ucontrol within xx yy 0.2 is_unit_dead 0
-jump Break_scan_loop notEqual is_unit_dead 1
+sensor total_items container1 @totalitems
+sensor copper container1 @copper
+sensor lead container1 @lead
+sensor titanium container1 @titanium
+sensor thorium container1 @thorium
+sensor metaglass container1 @metaglass
+sensor graphite container1 @graphite
+sensor sand container1 @sand
+sensor coal container1 @coal
+sensor scrap container1 @scrap
+sensor silicon container1 @silicon
+sensor plastanium container1 @plastanium
+sensor phase-fabric container1 @phase-fabric
+sensor surge_alloy container1 @surge-alloy
+sensor spore_pod container1 @spore-pod
+sensor blast_compound container1 @blast-compound
+sensor pyratite container1 @pyratite
+sensor beryllium container1 @beryllium
+sensor tungsten container1 @tungsten
+sensor oxide container1 @oxide
+sensor carbide container1 @carbide
+set max 300
+jump Resource_full equal copper max
+jump Resource_full equal lead max
+jump Resource_full equal titanium max
+jump Resource_full equal thorium max
+jump Resource_full equal metaglass max
+jump Resource_full equal graphite max
+jump Resource_full equal sand max
+jump Resource_full equal coal max
+jump Resource_full equal scrap max
+jump Resource_full equal silicon max
+jump Resource_full equal plastanium max
+jump Resource_full equal phase-fabric max
+jump Resource_full equal surge_alloy max
+jump Resource_full equal spore_pod max
+jump Resource_full equal blast_compound max
+jump Resource_full equal pyratite max
+jump Resource_full equal beryllium max
+jump Resource_full equal tungsten max
+jump Resource_full equal oxide max
+jump Resource_full equal carbide max
+jump Main always
+Resource_full: ucontrol within xx yy 0.2 is_unit_dead false
+jump Main notEqual is_unit_dead true
 ucontrol payTacounter_ke 0 0 0 0 0
 jump Main always
