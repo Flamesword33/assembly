@@ -1,5 +1,15 @@
 set true 1
 set false 0
+set Start 12
+set Find_unit 14 
+set Unit_found 22
+set Main 23
+set Container1_full 41
+set Container2_full 48
+set Payload_empty 53
+set P0_container1_full 61
+set Sensor_setup 70
+set Resource_full 116
 Start: op mul xy_coordinates @thisx 1000
 op add xy_coordinates @thisy xy_coordinates
 Find_unit: ubind @mega
