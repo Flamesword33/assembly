@@ -1,15 +1,6 @@
 set true 1
 set false 0
-set Start 12
-set Find_unit 14 
-set Unit_found 22
-set Main 23
-set Container1_full 41
-set Container2_full 48
-set Payload_empty 53
-set P0_container1_full 61
-set Sensor_setup 70
-set Resource_full 116
+
 Start: op mul xy_coordinates @thisx 1000
 op add xy_coordinates @thisy xy_coordinates
 Find_unit: ubind @mega
@@ -21,6 +12,7 @@ sensor commanded_unit @unit @controlled
 jump Find_unit notEqual commanded_unit 0
 ucontrol flag xy_coordinates 0 0 0 0
 Unit_found: set k 0
+
 Main: sensor is_arc1_shooting arc1 @shooting
 sensor is_unit_dead @unit @dead
 jump Start equal is_unit_dead 1
@@ -32,6 +24,7 @@ sensor unit_payload @unit @payloadType
 jump Payload_empty equal unit_payload 0
 jump Container1_full notEqual container1 0
 jump Container2_full notEqual container2 0
+##payload full, container1 & container2 empty 
 op add xx @thisx 2
 set yy @thisy
 ucontrol move xx yy 0 0 0
@@ -39,6 +32,7 @@ ucontrol within xx yy 0.2 is_unit_dead false
 jump Main equal is_unit_dead false              
 ucontrol payDrop c 0 0 0 0
 jump Main always           
+
 Container1_full: op add xx @thisx 4
 set yy @thisy
 ucontrol move xx yy 0 0 0
@@ -46,11 +40,13 @@ ucontrol within xx yy 0.2 is_unit_dead 0
 jump Main equal is_unit_dead false
 ucontrol payDrop c 0 0 0 0
 jump Main always
+
 Container2_full: ucontrol move target_x target_y 0 0 0
 ucontrol within target_x target_y 0.2 is_unit_dead false
 jump Main equal is_unit_dead false
 ucontrol payDrop c 0 0 0 0
 jump Main always
+
 Payload_empty: jump P0_container1_full notEqual container1 0
 sensor xx container2 @x
 sensor yy container2 @y
@@ -59,6 +55,7 @@ ucontrol within xx yy 0.2 is_unit_dead false
 jump Main equal is_unit_dead false
 ucontrol payTacounter_ke 0 0 0 0 0
 jump Main always
+
 P0_container1_full: jump Sensor_setup notEqual container2 0
 ucontrol move target_x target_y 0 0 0
 ucontrol getBlocommanded_unitounter_k target_x target_y 0 c 0
@@ -68,6 +65,7 @@ ucontrol within target_x target_y 0.2 is_unit_dead false
 jump Main notEqual is_unit_dead true
 ucontrol payTacounter_ke 0 0 0 0 0
 jump Start always
+
 Sensor_setup: sensor yy container1 @y
 sensor xx container1 @x
 ucontrol move xx yy 0 0 0
