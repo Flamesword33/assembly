@@ -1,0 +1,41 @@
+Finished coding the dang thing, other 900 lines in other modules working as intended. Unsure what goofed in this one. Wanna debug?
+
+->Factory (Factory1, Factory3 {i called Factory2x/y}) rotations are not considering T3 counts (Sp,Fo,Qu,Ze,Me), keeps overcapping
+->T2 seems fine arbitrarily (At,Ma,Pu,Ho,Po)
+->Reconstructor1 is not considering land T3 counts (Sp, Fo), will not re-engage when they drop to 21
+->Its the last thing stopping me from using it
+
+Mostly works: testing revealed problem is different that thought
+when unit cap hits 20 Reco2 restarts, but not 20-23 as intended
+
+when unit cap hits 20 Reco2 restarts, but not 20-23 as intended (minor) (edited)
+[12:42 PM]
+When T3s are all at cap, producing T2s will start T3s and clog (machine breaking) (edited)
+
+Buffskin McThunderfists — Yesterday at 12:45 PM
+The floating processors are used to check what specific internal values are, send them to messages. Use them to ask questions. (edited)
+[12:49 PM]
+One planned change I have is to add T2 unit types to t2Mod, T3s to t3Mod as I just noticed it can read them there. I dont think this affects any machinery except Reco1 when units are mixed, and I'll fix it tonight.
+
+Buffskin McThunderfists — Yesterday at 12:56 PM
+When the current setup works I'll be adding a T3 low priority chain for when; specific T2s are at capacity AND Reco2 is busy
+Essentialll after this setup works I'll add logic to give Reco1 100% uptime
+[1:01 PM]
+How to read cell1
+Open big logic block, count unit types down to the one you need starting at 0
+
+0-dagger
+1-mace
+2-fortress
+3-sceptre
+4-reign
+5-nova...
+etc
+
+The number is the index of that unit's count stored in cell1, and thats what every processor is reading
+
+Nathans notes: 
+Code looks like a linear flow to end at line 33, 131
+
+Testing in game causes a jam regardless of how many are running. Rebuilding clears the jam. 
+Possible overflow?
