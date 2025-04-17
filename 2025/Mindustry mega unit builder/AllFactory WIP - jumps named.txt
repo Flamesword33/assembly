@@ -4,15 +4,15 @@ print "Flip2Reset"
 sensor thisx @this @x
 sensor thisy @this @y
 sensor rot reconstructor2 @rotation
-jump 11 equal rot 0
+jump J1 equal rot 0
 op sub rot2 rot 1
 op sub rot3 rot 2
 op sub rot4 rot 3
-jump 14 always rot 0
-set rot2 3
+jump J2 always rot 0
+J1: set rot2 3
 set rot3 2
 set rot4 1
-sensor t2x reconstructor1 @x
+J2: sensor t2x reconstructor1 @x
 sensor t2y reconstructor1 @y
 sensor factoryx factory1 @x
 sensor factoryy factory1 @y
@@ -21,9 +21,9 @@ sensor factory2x factory3 @x
 sensor factory2y factory3 @y
 sensor t2payload reconstructor1 @payloadCount
 sensor t3payload reconstructor2 @payloadCount
-jump 33 greaterThan t2payload 0
-jump 33 greaterThan t3payload 0
-jump 33 notEqual config1 null
+jump J4 greaterThan t2payload 0
+jump J4 greaterThan t3payload 0
+jump J4 notEqual config1 null
 ucontrol flag 0 0 0 0 0
 set ucount 0
 control enabled factory2 0 0 0 0
@@ -31,8 +31,8 @@ print "  "
 print "No Unit Needed"
 printflush message1
 end
-print ucount
-jump 48 greaterThan ucount 0
+J4: print ucount
+jump J5 greaterThan ucount 0
 print "unit bind"
 ubind @nova
 ucontrol flag 111 0 0 0 0
@@ -40,13 +40,13 @@ ucontrol boost 1 0 0 0 0
 ucontrol stop 1 0 0 0 0
 sensor flag @unit @flag
 set ucount 1
-ulocate building core false @copper corex corey core core
+J6: ulocate building core false @copper corex corey core core
 ucontrol boost 1 0 0 0 0
 ucontrol move corex corey 10 0 0
 sensor payload @unit @totalItems
 ucontrol itemDrop core payload 10 0 0
-jump 42 greaterThan payload 0
-ucontrol stop t2x t2y 10 0 0
+jump J6 greaterThan payload 0
+J5: ucontrol stop t2x t2y 10 0 0
 ucontrol boost 1 0 0 0 0
 ucontrol move thisx thisy 10 0 0
 sensor t2payload reconstructor1 @payloadCount
@@ -54,78 +54,78 @@ sensor t2Mod reconstructor1 @payloadType
 sensor t3Mod reconstructor2 @payloadType
 sensor t2health reconstructor1 @health
 sensor t2power reconstructor1 @powerNetIn
-jump 72 equal t2health null
-jump 72 equal t2power 0
-jump 72 equal t2payload 1
+jump J7 equal t2health null
+jump J7 equal t2power 0
+jump J7 equal t2payload 1
 read MaCount cell1 1
-jump 62 notEqual t2Mod dagger
+jump J8 notEqual t2Mod dagger
 op add MaCount MaCount 1
-jump 64 greaterThan MaCount 22
-jump 70 always MaCount 22
-read FoCount cell1 2
-jump 67 notEqual t2Mod dagger
+J8: jump J9 greaterThan MaCount 22
+jump J10 always MaCount 22
+J9: read FoCount cell1 2
+jump J11 notEqual t2Mod dagger
 op add FoCount FoCount 1
-jump 69 notEqual t3Mod mace
+J11: jump J12 notEqual t3Mod mace
 op add FoCount FoCount 1
-jump 72 greaterThan FoCount 22
-ucontrol build factoryx factoryy @ground-factory rot4 0
-jump 73 always x false
-ucontrol build factoryx factoryy @ground-factory rot 0
-jump 89 equal t2health null
-jump 89 equal t2power 0
-jump 89 equal t2payload 1
+J12: jump J7 greaterThan FoCount 22
+J10: ucontrol build factoryx factoryy @ground-factory rot4 0
+jump J13 always x false
+J7: ucontrol build factoryx factoryy @ground-factory rot 0
+J13: jump J14 equal t2health null
+jump J14 equal t2power 0
+jump J14 equal t2payload 1
 read AtCount cell1 11
-jump 79 notEqual t2Mod crawler
+jump J15 notEqual t2Mod crawler
 op add AtCount AtCount 1
-jump 81 greaterThan AtCount 22
-jump 87 always AtCount 22
-read SpCount cell1 12
-jump 84 notEqual t2Mod crawler
+J15: jump J16 greaterThan AtCount 22
+jump J17 always AtCount 22
+J16: read SpCount cell1 12
+jump J18 notEqual t2Mod crawler
 op add SpCount SpCount 1
-jump 86 notEqual t3Mod atrax
+J18: jump J19 notEqual t3Mod atrax
 op add SpCount SpCount 1
-jump 89 greaterThan SpCount 22
-ucontrol build factory2x factory2y @ground-factory rot 0
-jump 90 always x false
-ucontrol build factory2x factory2y @ground-factory rot2 0
-sensor t3payload reconstructor2 @payloadCount
+J19: jump J14 greaterThan SpCount 22
+J17: ucontrol build factory2x factory2y @ground-factory rot 0
+jump J20 always x false
+J14: ucontrol build factory2x factory2y @ground-factory rot2 0
+J20: sensor t3payload reconstructor2 @payloadCount
 sensor t2Mod reconstructor1 @payloadType
 sensor t3Mod reconstructor2 @payloadType
 sensor t3health reconstructor2 @health
 sensor t3power reconstructor2 @powerNetIn
-jump 129 equal t3health null
-jump 129 equal t3power 0
-jump 129 equal t3payload 1
+jump J21 equal t3health null
+jump J21 equal t3power 0
+jump J21 equal t3payload 1
 read FoCount cell1 2
-jump 104 notEqual t2Mod dagger
-jump 102 notEqual t3Mod mace
+jump J22 notEqual t2Mod dagger
+jump J23 notEqual t3Mod mace
 op add FoCount FoCount 1
-jump 129 greaterThan FoCount 23
-jump 127 always FoCount 23
-read QuCount cell1 7
-jump 110 notEqual t2Mod nova
-jump 108 notEqual t3Mod pulsar
+J23: jump J21 greaterThan FoCount 23
+jump J24 always FoCount 23
+J22: read QuCount cell1 7
+jump J25 notEqual t2Mod nova
+jump J26 notEqual t3Mod pulsar
 op add QuCount QuCount 1
-jump 129 greaterThan QuCount 23
-jump 127 always FoCount 23
-read SpCount cell1 12
-jump 116 notEqual t2Mod crawler
-jump 114 notEqual t3Mod atrax
+J26: jump J21 greaterThan QuCount 23
+jump J24 always FoCount 23
+J25: read SpCount cell1 12
+jump J27 notEqual t2Mod crawler
+jump J28 notEqual t3Mod atrax
 op add SpCount SpCount 1
-jump 129 greaterThan SpCount 23
-jump 127 always FoCount 23
-read ZeCount cell1 17
-jump 122 notEqual t2Mod flare
-jump 120 notEqual t3Mod horizon
+J28: jump J21 greaterThan SpCount 23
+jump J24 always FoCount 23
+J27: read ZeCount cell1 17
+jump J29 notEqual t2Mod flare
+jump J30 notEqual t3Mod horizon
 op add ZeCount ZeCount 1
-jump 129 greaterThan ZeCount 23
-jump 127 always FoCount 23
-read MeCount cell1 22
-jump 127 notEqual t2Mod mono
-jump 126 notEqual t3Mod poly
+J30: jump J21 greaterThan ZeCount 23
+jump J24 always FoCount 23
+J29: read MeCount cell1 22
+jump J24 notEqual t2Mod mono
+jump J31 notEqual t3Mod poly
 op add MeCount MeCount 1
-jump 129 greaterThan MeCount 23
-ucontrol build t2x t2y @additive-reconstructor rot4 0
-jump 130 always x false
-ucontrol build t2x t2y @additive-reconstructor rot 0
-end
+J31: jump J21 greaterThan MeCount 23
+J24: ucontrol build t2x t2y @additive-reconstructor rot4 0
+jump J32 always x false
+J21: ucontrol build t2x t2y @additive-reconstructor rot 0
+J32: end
