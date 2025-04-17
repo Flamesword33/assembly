@@ -9,10 +9,12 @@ op sub rot2 rot 1
 op sub rot3 rot 2
 op sub rot4 rot 3
 jump J2 always rot 0
-J1: set rot2 3
+J1: 
+set rot2 3
 set rot3 2
 set rot4 1
-J2: sensor t2x reconstructor1 @x
+J2: 
+sensor t2x reconstructor1 @x
 sensor t2y reconstructor1 @y
 sensor factoryx factory1 @x
 sensor factoryy factory1 @y
@@ -31,7 +33,8 @@ print "  "
 print "No Unit Needed"
 printflush message1
 end
-J4: print ucount
+J4: 
+print ucount
 jump J5 greaterThan ucount 0
 print "unit bind"
 ubind @nova
@@ -40,13 +43,15 @@ ucontrol boost 1 0 0 0 0
 ucontrol stop 1 0 0 0 0
 sensor flag @unit @flag
 set ucount 1
-J6: ulocate building core false @copper corex corey core core
+J6: 
+ulocate building core false @copper corex corey core core
 ucontrol boost 1 0 0 0 0
 ucontrol move corex corey 10 0 0
 sensor payload @unit @totalItems
 ucontrol itemDrop core payload 10 0 0
 jump J6 greaterThan payload 0
-J5: ucontrol stop t2x t2y 10 0 0
+J5: 
+ucontrol stop t2x t2y 10 0 0
 ucontrol boost 1 0 0 0 0
 ucontrol move thisx thisy 10 0 0
 sensor t2payload reconstructor1 @payloadCount
@@ -60,35 +65,49 @@ jump J7 equal t2payload 1
 read MaCount cell1 1
 jump J8 notEqual t2Mod dagger
 op add MaCount MaCount 1
-J8: jump J9 greaterThan MaCount 22
+J8: 
+jump J9 greaterThan MaCount 22
 jump J10 always MaCount 22
-J9: read FoCount cell1 2
+J9: 
+read FoCount cell1 2
 jump J11 notEqual t2Mod dagger
 op add FoCount FoCount 1
-J11: jump J12 notEqual t3Mod mace
+J11: 
+jump J12 notEqual t3Mod mace
 op add FoCount FoCount 1
-J12: jump J7 greaterThan FoCount 22
-J10: ucontrol build factoryx factoryy @ground-factory rot4 0
+J12: 
+jump J7 greaterThan FoCount 22
+J10: 
+ucontrol build factoryx factoryy @ground-factory rot4 0
 jump J13 always x false
-J7: ucontrol build factoryx factoryy @ground-factory rot 0
-J13: jump J14 equal t2health null
+J7: 
+ucontrol build factoryx factoryy @ground-factory rot 0
+J13: 
+jump J14 equal t2health null
 jump J14 equal t2power 0
 jump J14 equal t2payload 1
 read AtCount cell1 11
 jump J15 notEqual t2Mod crawler
 op add AtCount AtCount 1
-J15: jump J16 greaterThan AtCount 22
+J15: 
+jump J16 greaterThan AtCount 22
 jump J17 always AtCount 22
-J16: read SpCount cell1 12
+J16: 
+read SpCount cell1 12
 jump J18 notEqual t2Mod crawler
 op add SpCount SpCount 1
-J18: jump J19 notEqual t3Mod atrax
+J18: 
+jump J19 notEqual t3Mod atrax
 op add SpCount SpCount 1
-J19: jump J14 greaterThan SpCount 22
-J17: ucontrol build factory2x factory2y @ground-factory rot 0
+J19: 
+jump J14 greaterThan SpCount 22
+J17: 
+ucontrol build factory2x factory2y @ground-factory rot 0
 jump J20 always x false
-J14: ucontrol build factory2x factory2y @ground-factory rot2 0
-J20: sensor t3payload reconstructor2 @payloadCount
+J14: 
+ucontrol build factory2x factory2y @ground-factory rot2 0
+J20: 
+sensor t3payload reconstructor2 @payloadCount
 sensor t2Mod reconstructor1 @payloadType
 sensor t3Mod reconstructor2 @payloadType
 sensor t3health reconstructor2 @health
@@ -100,32 +119,44 @@ read FoCount cell1 2
 jump J22 notEqual t2Mod dagger
 jump J23 notEqual t3Mod mace
 op add FoCount FoCount 1
-J23: jump J21 greaterThan FoCount 23
+J23: 
+jump J21 greaterThan FoCount 23
 jump J24 always FoCount 23
-J22: read QuCount cell1 7
+J22: 
+read QuCount cell1 7
 jump J25 notEqual t2Mod nova
 jump J26 notEqual t3Mod pulsar
 op add QuCount QuCount 1
-J26: jump J21 greaterThan QuCount 23
+J26: 
+jump J21 greaterThan QuCount 23
 jump J24 always FoCount 23
-J25: read SpCount cell1 12
+J25: 
+read SpCount cell1 12
 jump J27 notEqual t2Mod crawler
 jump J28 notEqual t3Mod atrax
 op add SpCount SpCount 1
-J28: jump J21 greaterThan SpCount 23
+J28: 
+jump J21 greaterThan SpCount 23
 jump J24 always FoCount 23
-J27: read ZeCount cell1 17
-jump J29 notEqual t2Mod flare
-jump J30 notEqual t3Mod horizon
+J27: 
+read ZeCount cell1 17
+jump If(t2Mod!=flare) notEqual t2Mod flare
+jump If(t3Mod!=horizon) notEqual t3Mod horizon
 op add ZeCount ZeCount 1
-J30: jump J21 greaterThan ZeCount 23
+If(t3Mod!=horizon): 
+jump J21 greaterThan ZeCount 23
 jump J24 always FoCount 23
-J29: read MeCount cell1 22
+If(t2Mod!=flare): 
+read MeCount cell1 22
 jump J24 notEqual t2Mod mono
-jump J31 notEqual t3Mod poly
+jump If(t3Mod!=poly) notEqual t3Mod poly
 op add MeCount MeCount 1
-J31: jump J21 greaterThan MeCount 23
-J24: ucontrol build t2x t2y @additive-reconstructor rot4 0
-jump J32 always x false
-J21: ucontrol build t2x t2y @additive-reconstructor rot 0
-J32: end
+If(t3Mod!=poly): 
+jump J21 greaterThan MeCount 23
+J24: 
+ucontrol build t2x t2y @additive-reconstructor rot4 0
+jump STOP always
+J21: 
+ucontrol build t2x t2y @additive-reconstructor rot 0
+STOP: 
+end
