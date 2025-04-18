@@ -34,6 +34,10 @@ etc
 
 The number is the index of that unit's count stored in cell1, and thats what every processor is reading
 
+T1 = Da Cr No Fl Mo
+T2 Ma At Ho Po Pu
+T3 Fo Sp Qu Me Ze
+
 Nathans notes: 
 Code looks like a linear flow to end at line 33, 131
 
