@@ -8,7 +8,7 @@ jump J1 equal rot 0
 op sub rot2 rot 1
 op sub rot3 rot 2
 op sub rot4 rot 3
-jump J2 always rot 0
+jump J2 always
 J1: 
 set rot2 3
 set rot3 2
@@ -67,19 +67,19 @@ jump J8 notEqual t2Mod dagger
 op add MaCount MaCount 1
 J8: 
 jump J9 greaterThan MaCount 22
-jump J10 always MaCount 22
+jump J10 always
 J9: 
 read FoCount cell1 2
-jump J11 notEqual t2Mod dagger
+jump If1(t2Mod!=dagger) notEqual t2Mod dagger
 op add FoCount FoCount 1
-J11: 
-jump J12 notEqual t3Mod mace
+If1(t2Mod!=dagger): 
+jump If1(t3Mod!=mace) notEqual t3Mod mace
 op add FoCount FoCount 1
-J12: 
+If1(t3Mod!=mace): 
 jump J7 greaterThan FoCount 22
 J10: 
 ucontrol build factoryx factoryy @ground-factory rot4 0
-jump J13 always x false
+jump J13 always 
 J7: 
 ucontrol build factoryx factoryy @ground-factory rot 0
 J13: 
@@ -87,23 +87,23 @@ jump J14 equal t2health null
 jump J14 equal t2power 0
 jump J14 equal t2payload 1
 read AtCount cell1 11
-jump J15 notEqual t2Mod crawler
+jump If2(t2Mod!=crawler) notEqual t2Mod crawler
 op add AtCount AtCount 1
-J15: 
-jump J16 greaterThan AtCount 22
-jump J17 always AtCount 22
-J16: 
+If2(t2Mod!=crawler): 
+jump If(AtCount>22) greaterThan AtCount 22
+jump J17 always
+If(AtCount>22): 
 read SpCount cell1 12
-jump J18 notEqual t2Mod crawler
+jump If1(t2Mod!=crawler) notEqual t2Mod crawler
 op add SpCount SpCount 1
-J18: 
-jump J19 notEqual t3Mod atrax
+If1(t2Mod!=crawler): 
+jump If1(t3Mod!=atrax) notEqual t3Mod atrax
 op add SpCount SpCount 1
-J19: 
+If1(t3Mod!=atrax): 
 jump J14 greaterThan SpCount 22
 J17: 
 ucontrol build factory2x factory2y @ground-factory rot 0
-jump J20 always x false
+jump J20 always
 J14: 
 ucontrol build factory2x factory2y @ground-factory rot2 0
 J20: 
@@ -116,36 +116,36 @@ jump J21 equal t3health null
 jump J21 equal t3power 0
 jump J21 equal t3payload 1
 read FoCount cell1 2
-jump J22 notEqual t2Mod dagger
-jump J23 notEqual t3Mod mace
+jump If(t2Mod!=dagger) notEqual t2Mod dagger
+jump If(t3Mod!=mace) notEqual t3Mod mace
 op add FoCount FoCount 1
-J23: 
+If(t3Mod!=mace): 
 jump J21 greaterThan FoCount 23
-jump J24 always FoCount 23
-J22: 
+jump J24 always 
+If(t2Mod!=dagger): 
 read QuCount cell1 7
-jump J25 notEqual t2Mod nova
-jump J26 notEqual t3Mod pulsar
+jump If(t2Mod!=nova) notEqual t2Mod nova
+jump If(t3Mod!=pulsar) notEqual t3Mod pulsar
 op add QuCount QuCount 1
-J26: 
+If(t3Mod!=pulsar): 
 jump J21 greaterThan QuCount 23
-jump J24 always FoCount 23
-J25: 
+jump J24 always 
+If(t2Mod!=nova): 
 read SpCount cell1 12
-jump J27 notEqual t2Mod crawler
-jump J28 notEqual t3Mod atrax
+jump If(t2Mod!=crawler) notEqual t2Mod crawler
+jump If(t3Mod!=atrax) notEqual t3Mod atrax
 op add SpCount SpCount 1
-J28: 
+If(t3Mod!=atrax): 
 jump J21 greaterThan SpCount 23
-jump J24 always FoCount 23
-J27: 
+jump J24 always
+If(t2Mod!=crawler): 
 read ZeCount cell1 17
 jump If(t2Mod!=flare) notEqual t2Mod flare
 jump If(t3Mod!=horizon) notEqual t3Mod horizon
 op add ZeCount ZeCount 1
 If(t3Mod!=horizon): 
 jump J21 greaterThan ZeCount 23
-jump J24 always FoCount 23
+jump J24 always 
 If(t2Mod!=flare): 
 read MeCount cell1 22
 jump J24 notEqual t2Mod mono
