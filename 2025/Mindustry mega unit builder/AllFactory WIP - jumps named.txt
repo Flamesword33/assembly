@@ -4,16 +4,16 @@ print "Flip2Reset"
 sensor thisx @this @x
 sensor thisy @this @y
 sensor rot reconstructor2 @rotation
-jump J1 equal rot 0
+jump If(rot==0) equal rot 0
 op sub rot2 rot 1
 op sub rot3 rot 2
 op sub rot4 rot 3
-jump J2 always
-J1: 
+jump Elif(rot!=0) always
+If(rot==0): 
 set rot2 3
 set rot3 2
 set rot4 1
-J2: 
+Elif(rot!=0): 
 sensor t2x reconstructor1 @x
 sensor t2y reconstructor1 @y
 sensor factoryx factory1 @x
@@ -23,9 +23,9 @@ sensor factory2x factory3 @x
 sensor factory2y factory3 @y
 sensor t2payload reconstructor1 @payloadCount
 sensor t3payload reconstructor2 @payloadCount
-jump J4 greaterThan t2payload 0
-jump J4 greaterThan t3payload 0
-jump J4 notEqual config1 null
+jump Main greaterThan t2payload 0
+jump Main greaterThan t3payload 0
+jump Main notEqual config1 null
 ucontrol flag 0 0 0 0 0
 set ucount 0
 control enabled factory2 0 0 0 0
@@ -33,9 +33,9 @@ print "  "
 print "No Unit Needed"
 printflush message1
 end
-J4: 
+Main: 
 print ucount
-jump J5 greaterThan ucount 0
+jump If(ucount>0) greaterThan ucount 0
 print "unit bind"
 ubind @nova
 ucontrol flag 111 0 0 0 0
@@ -43,14 +43,14 @@ ucontrol boost 1 0 0 0 0
 ucontrol stop 1 0 0 0 0
 sensor flag @unit @flag
 set ucount 1
-J6: 
+DoWhile(payload>0): 
 ulocate building core false @copper corex corey core core
 ucontrol boost 1 0 0 0 0
 ucontrol move corex corey 10 0 0
 sensor payload @unit @totalItems
 ucontrol itemDrop core payload 10 0 0
-jump J6 greaterThan payload 0
-J5: 
+jump DoWhile(payload>0) greaterThan payload 0
+If(ucount>0): 
 ucontrol stop t2x t2y 10 0 0
 ucontrol boost 1 0 0 0 0
 ucontrol move thisx thisy 10 0 0
@@ -63,80 +63,80 @@ jump J7 equal t2health null
 jump J7 equal t2power 0
 jump J7 equal t2payload 1
 read MaCount cell1 1
-jump J8 notEqual t2Mod dagger
+jump IsMaDagger notEqual t2Mod dagger
 op add MaCount MaCount 1
-J8: 
-jump J9 greaterThan MaCount 22
-jump J10 always
-J9: 
+IsMaDagger: 
+jump MaFull greaterThan MaCount 22
+jump MaEmpty always
+MaFull: 
 read FoCount cell1 2
-jump If1(t2Mod!=dagger) notEqual t2Mod dagger
+jump IsFoDagger notEqual t2Mod dagger
 op add FoCount FoCount 1
-If1(t2Mod!=dagger): 
-jump If1(t3Mod!=mace) notEqual t3Mod mace
+IsFoDagger: 
+jump IsFoMace notEqual t3Mod mace
 op add FoCount FoCount 1
-If1(t3Mod!=mace): 
+IsFoMace: 
 jump J7 greaterThan FoCount 22
-J10: 
+MaEmpty: 
 ucontrol build factoryx factoryy @ground-factory rot4 0
 jump J13 always 
 J7: 
 ucontrol build factoryx factoryy @ground-factory rot 0
 J13: 
-jump J14 equal t2health null
-jump J14 equal t2power 0
-jump J14 equal t2payload 1
+jump SpFull equal t2health null
+jump SpFull equal t2power 0
+jump SpFull equal t2payload 1
 read AtCount cell1 11
-jump If2(t2Mod!=crawler) notEqual t2Mod crawler
+jump IsAtCrawler notEqual t2Mod crawler
 op add AtCount AtCount 1
-If2(t2Mod!=crawler): 
-jump If(AtCount>22) greaterThan AtCount 22
-jump J17 always
-If(AtCount>22): 
+IsAtCrawler: 
+jump AtFull greaterThan AtCount 22
+jump AtEmpty always
+AtFull: 
 read SpCount cell1 12
-jump If1(t2Mod!=crawler) notEqual t2Mod crawler
+jump IsSpCrawler notEqual t2Mod crawler
 op add SpCount SpCount 1
-If1(t2Mod!=crawler): 
-jump If1(t3Mod!=atrax) notEqual t3Mod atrax
+IsSpCrawler: 
+jump IsSpAtrax notEqual t3Mod atrax
 op add SpCount SpCount 1
-If1(t3Mod!=atrax): 
-jump J14 greaterThan SpCount 22
-J17: 
+IsSpAtrax: 
+jump SpFull greaterThan SpCount 22
+AtEmpty: 
 ucontrol build factory2x factory2y @ground-factory rot 0
-jump J20 always
-J14: 
+jump SpEmpty always
+SpFull: 
 ucontrol build factory2x factory2y @ground-factory rot2 0
-J20: 
+SpEmpty: 
 sensor t3payload reconstructor2 @payloadCount
 sensor t2Mod reconstructor1 @payloadType
 sensor t3Mod reconstructor2 @payloadType
 sensor t3health reconstructor2 @health
 sensor t3power reconstructor2 @powerNetIn
-jump J21 equal t3health null
-jump J21 equal t3power 0
-jump J21 equal t3payload 1
+jump Full equal t3health null
+jump Full equal t3power 0
+jump Full equal t3payload 1
 read FoCount cell1 2
 jump If(t2Mod!=dagger) notEqual t2Mod dagger
 jump If(t3Mod!=mace) notEqual t3Mod mace
 op add FoCount FoCount 1
 If(t3Mod!=mace): 
-jump J21 greaterThan FoCount 23
+jump Full greaterThan FoCount 23
 jump J24 always 
 If(t2Mod!=dagger): 
 read QuCount cell1 7
-jump If(t2Mod!=nova) notEqual t2Mod nova
-jump If(t3Mod!=pulsar) notEqual t3Mod pulsar
+jump IsQuNova notEqual t2Mod nova
+jump IsQuPulsar notEqual t3Mod pulsar
 op add QuCount QuCount 1
-If(t3Mod!=pulsar): 
-jump J21 greaterThan QuCount 23
+IsQuPulsar: 
+jump Full greaterThan QuCount 23
 jump J24 always 
-If(t2Mod!=nova): 
+IsQuNova: 
 read SpCount cell1 12
 jump If(t2Mod!=crawler) notEqual t2Mod crawler
 jump If(t3Mod!=atrax) notEqual t3Mod atrax
 op add SpCount SpCount 1
 If(t3Mod!=atrax): 
-jump J21 greaterThan SpCount 23
+jump Full greaterThan SpCount 23
 jump J24 always
 If(t2Mod!=crawler): 
 read ZeCount cell1 17
@@ -144,7 +144,7 @@ jump If(t2Mod!=flare) notEqual t2Mod flare
 jump If(t3Mod!=horizon) notEqual t3Mod horizon
 op add ZeCount ZeCount 1
 If(t3Mod!=horizon): 
-jump J21 greaterThan ZeCount 23
+jump Full greaterThan ZeCount 23
 jump J24 always 
 If(t2Mod!=flare): 
 read MeCount cell1 22
@@ -152,11 +152,11 @@ jump J24 notEqual t2Mod mono
 jump If(t3Mod!=poly) notEqual t3Mod poly
 op add MeCount MeCount 1
 If(t3Mod!=poly): 
-jump J21 greaterThan MeCount 23
+jump Full greaterThan MeCount 23
 J24: 
 ucontrol build t2x t2y @additive-reconstructor rot4 0
 jump STOP always
-J21: 
+Full: 
 ucontrol build t2x t2y @additive-reconstructor rot 0
 STOP: 
 end
