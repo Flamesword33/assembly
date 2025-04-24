@@ -58,14 +58,14 @@ jump 72 equal t2health null
 jump 72 equal t2power 0
 jump 72 equal t2payload 1
 read MaCount cell1 1
-jump 62 notEqual t2Mod dagger
+jump 62 notEqual t2Mod @dagger
 op add MaCount MaCount 1
 jump 64 greaterThan MaCount 22
 jump 70 always MaCount 22
 read FoCount cell1 2
-jump 67 notEqual t2Mod dagger
+jump 67 notEqual t2Mod @dagger
 op add FoCount FoCount 1
-jump 69 notEqual t3Mod mace
+jump 69 notEqual t3Mod @mace
 op add FoCount FoCount 1
 jump 72 greaterThan FoCount 22
 ucontrol build factoryx factoryy @ground-factory rot4 0
@@ -75,14 +75,14 @@ jump 89 equal t2health null
 jump 89 equal t2power 0
 jump 89 equal t2payload 1
 read AtCount cell1 11
-jump 79 notEqual t2Mod crawler
+jump 79 notEqual t2Mod @crawler
 op add AtCount AtCount 1
 jump 81 greaterThan AtCount 22
 jump 87 always AtCount 22
 read SpCount cell1 12
-jump 84 notEqual t2Mod crawler
+jump 84 notEqual t2Mod @crawler
 op add SpCount SpCount 1
-jump 86 notEqual t3Mod atrax
+jump 86 notEqual t3Mod @atrax
 op add SpCount SpCount 1
 jump 89 greaterThan SpCount 22
 ucontrol build factory2x factory2y @ground-factory rot 0
@@ -97,32 +97,32 @@ jump 129 equal t3health null
 jump 129 equal t3power 0
 jump 129 equal t3payload 1
 read FoCount cell1 2
-jump 104 notEqual t2Mod dagger
-jump 102 notEqual t3Mod mace
+jump 104 notEqual t2Mod @dagger
+jump 102 notEqual t3Mod @mace
 op add FoCount FoCount 1
 jump 129 greaterThan FoCount 23
 jump 127 always FoCount 23
 read QuCount cell1 7
-jump 110 notEqual t2Mod nova
-jump 108 notEqual t3Mod pulsar
+jump 110 notEqual t2Mod @nova
+jump 108 notEqual t3Mod @pulsar
 op add QuCount QuCount 1
 jump 129 greaterThan QuCount 23
 jump 127 always FoCount 23
 read SpCount cell1 12
-jump 116 notEqual t2Mod crawler
-jump 114 notEqual t3Mod atrax
+jump 116 notEqual t2Mod @crawler
+jump 114 notEqual t3Mod @atrax
 op add SpCount SpCount 1
 jump 129 greaterThan SpCount 23
 jump 127 always FoCount 23
 read ZeCount cell1 17
-jump 122 notEqual t2Mod flare
-jump 120 notEqual t3Mod horizon
+jump 122 notEqual t2Mod @flare
+jump 120 notEqual t3Mod @horizon
 op add ZeCount ZeCount 1
 jump 129 greaterThan ZeCount 23
 jump 127 always FoCount 23
 read MeCount cell1 22
-jump 127 notEqual t2Mod mono
-jump 126 notEqual t3Mod poly
+jump 127 notEqual t2Mod @mono
+jump 126 notEqual t3Mod @poly
 op add MeCount MeCount 1
 jump 129 greaterThan MeCount 23
 ucontrol build t2x t2y @additive-reconstructor rot4 0
