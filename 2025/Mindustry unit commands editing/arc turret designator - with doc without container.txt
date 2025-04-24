@@ -1,0 +1,22 @@
+set true 1
+set false 0
+
+Start: op mul xy_coordinates @thisx 1000
+op add xy_coordinates @thisy xy_coordinates
+Find_unit: ubind @mega
+op add k k 1
+sensor flagged_unit @unit @flag
+jump Unit_found equal flagged_unit xy_coordinates
+jump Find_unit lessThan k 30
+sensor commanded_unit @unit @controlled
+jump Find_unit notEqual commanded_unit 0
+ucontrol flag xy_coordinates 0 0 0 0
+Unit_found: set k 0
+
+Main: sensor is_arc1_shooting arc1 @shooting
+sensor is_unit_dead @unit @dead
+jump Start equal is_unit_dead 1
+jump Main notEqual is_arc1_shooting 1
+sensor target_x arc1 @shootX
+sensor target_y arc1 @shootY
+jump Main equal target_x 0
