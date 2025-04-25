@@ -1,13 +1,12 @@
 //checks if you are dead and if so, regroups
 sensor arcX @arc1 @x
 sensor arcY @arc1 @y
+ubind @nova
 jump Regroup equal @unit null
 sensor health @unit @health
 jump Unit_alive greaterThan health 0
 
 Regroup: 
-//upon researching will code will jump between all nova's 
-ubind @nova
 //arc1 needs to set its flag to 0 when the commander is there
 sensor flag @arc1 @flag
 //////////////////////////////////

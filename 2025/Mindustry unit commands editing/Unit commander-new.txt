@@ -1,9 +1,9 @@
 sensor arcX @arc1 @x
 sensor arcY @arc1 @y
 jump 5 equal @unit null
+ubind @nova
 sensor health @unit @health
 jump 9 greaterThan health 0
-ubind @nova
 sensor flag @arc1 @flag
 ucontrol pathfind arcX arkY 0 0 0
 jump 5 notEqual flag 0
