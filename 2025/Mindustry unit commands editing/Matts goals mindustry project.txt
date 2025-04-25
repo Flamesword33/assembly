@@ -32,3 +32,8 @@ Unit army;
         b. fall back to max range if low HP
 5 back away from target
 6 regroup at commander if no targets 
+
+ubind @dagger
+sensor arcX arc1 @shootX
+sensor arcY arc1 @shootY
+ucontrol move arcX arcY 0 0 0
