@@ -1,0 +1,49 @@
+jump Regroup equal @unit null
+sensor health @unit @health
+jump Unit_alive greaterThan health 0
+
+Unit_alive: 
+uradar enemy ground any distance turret1 1 target
+sensor unit_x @unit @x
+sensor unit_y @unit @y
+write unit_x cell2 2
+write unit_y cell2 3
+
+SearchForEnemy:
+jump Enemy_moving notEqual target null
+uradar enemy any any distance turret1 1 target
+jump Enemy_moving notEqual target null
+ulocate building turret true @copper outx outy found target
+jump Enemy_moving notEqual target null
+ulocate building core true @copper outx outy found target
+jump Enemy_moving notEqual target null
+
+Enemy_holding_still:
+ucontrol target 0 0 0 0 0
+write 0 cell2 0
+write 0 cell2 1
+ucontrol pathfind 0 0 0 0 0
+
+Enemy_moving: 
+set min_dist 24
+sensor max_health @unit @maxHealth
+sensor health @unit @health
+op div percent_health health max_health
+sensor enemy_x target @x
+sensor enemy_y target @y
+write enemy_x cell2 0
+write enemy_y cell2 1
+ucontrol targetp target 1 1 0 0
+ucontrol approach enemy_x enemy_y min_dist 0 0
+end
+
+Regroup: 
+ubind @nova
+sensor flag @unit @flag
+//////////////////////////////////
+//SET REGOUP POINT TO ARC TURRET//
+sensor arcX @arc1 @x
+sensor arcY @arc1 @y
+ucontrol approach arcX arkY 5 0 0
+//////////////////////////////////
+jump Regroup notEqual flag 0
