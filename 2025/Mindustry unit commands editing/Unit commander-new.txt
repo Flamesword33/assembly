@@ -1,18 +1,24 @@
-jump 30 equal @unit null
+jump 3 equal @unit null
 sensor health @unit @health
-jump 3 greaterThan health 0
+jump 10 greaterThan health 0
+ubind @nova
+sensor flag @unit @flag
+sensor arcX @arc1 @x
+sensor arcY @arc1 @y
+ucontrol approach arcX arkY 5 0 0
+jump 3 notEqual flag 0
 uradar enemy ground any distance turret1 1 target
 sensor unit_x @unit @x
 sensor unit_y @unit @y
 write unit_x cell2 2
 write unit_y cell2 3
-jump 19 notEqual target null
+jump 25 notEqual target null
 uradar enemy any any distance turret1 1 target
-jump 19 notEqual target null
+jump 25 notEqual target null
 ulocate building turret true @copper outx outy found target
-jump 19 notEqual target null
+jump 25 notEqual target null
 ulocate building core true @copper outx outy found target
-jump 19 notEqual target null
+jump 25 notEqual target null
 ucontrol target 0 0 0 0 0
 write 0 cell2 0
 write 0 cell2 1
@@ -27,10 +33,3 @@ write enemy_x cell2 0
 write enemy_y cell2 1
 ucontrol targetp target 1 1 0 0
 ucontrol approach enemy_x enemy_y min_dist 0 0
-end
-ubind @nova
-sensor flag @unit @flag
-sensor arcX @arc1 @x
-sensor arcY @arc1 @y
-ucontrol approach arcX arkY 5 0 0
-jump 30 notEqual flag 0

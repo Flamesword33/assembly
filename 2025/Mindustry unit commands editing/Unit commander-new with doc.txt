@@ -2,6 +2,17 @@ jump Regroup equal @unit null
 sensor health @unit @health
 jump Unit_alive greaterThan health 0
 
+Regroup: 
+ubind @nova
+sensor flag @unit @flag
+//////////////////////////////////
+//SET REGOUP POINT TO ARC TURRET//
+sensor arcX @arc1 @x
+sensor arcY @arc1 @y
+ucontrol approach arcX arkY 5 0 0
+//////////////////////////////////
+jump Regroup notEqual flag 0
+
 Unit_alive: 
 uradar enemy ground any distance turret1 1 target
 sensor unit_x @unit @x
@@ -35,15 +46,3 @@ write enemy_x cell2 0
 write enemy_y cell2 1
 ucontrol targetp target 1 1 0 0
 ucontrol approach enemy_x enemy_y min_dist 0 0
-end
-
-Regroup: 
-ubind @nova
-sensor flag @unit @flag
-//////////////////////////////////
-//SET REGOUP POINT TO ARC TURRET//
-sensor arcX @arc1 @x
-sensor arcY @arc1 @y
-ucontrol approach arcX arkY 5 0 0
-//////////////////////////////////
-jump Regroup notEqual flag 0
