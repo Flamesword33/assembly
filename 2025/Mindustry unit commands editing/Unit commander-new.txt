@@ -40,4 +40,7 @@ end
 Regroup: 
 ubind @nova
 sensor flag @unit @flag
+//////////////////////////////////
+//SET REGOUP POINT TO ARC TURRET//
+//////////////////////////////////
 jump Regroup notEqual flag 0
