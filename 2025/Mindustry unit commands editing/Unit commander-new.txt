@@ -1,12 +1,12 @@
-jump 3 equal @unit null
-sensor health @unit @health
-jump 10 greaterThan health 0
-ubind @nova
-sensor flag @unit @flag
 sensor arcX @arc1 @x
 sensor arcY @arc1 @y
-ucontrol approach arcX arkY 5 0 0
-jump 3 notEqual flag 0
+jump 5 equal @unit null
+sensor health @unit @health
+jump 9 greaterThan health 0
+ubind @nova
+sensor flag @arc1 @flag
+ucontrol pathfind arcX arkY 0 0 0
+jump 5 notEqual flag 0
 uradar enemy ground any distance turret1 1 target
 sensor unit_x @unit @x
 sensor unit_y @unit @y
@@ -22,7 +22,7 @@ jump 25 notEqual target null
 ucontrol target 0 0 0 0 0
 write 0 cell2 0
 write 0 cell2 1
-ucontrol pathfind 0 0 0 0 0
+ucontrol pathfind arcX arcY 0 0 0
 set min_dist 24
 sensor max_health @unit @maxHealth
 sensor health @unit @health
