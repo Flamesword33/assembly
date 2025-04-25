@@ -1,0 +1,10 @@
+Regroup: 
+FindCommander:
+RallyAtCommander:
+FindTarget:
+ApproachTarget:
+KillTarget:
+CheckIfHurt:
+IfHurtFallBack:
+Retreat:
+Regroup:
