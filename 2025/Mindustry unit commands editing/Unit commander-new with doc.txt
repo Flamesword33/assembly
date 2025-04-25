@@ -6,6 +6,7 @@ sensor health @unit @health
 jump Unit_alive greaterThan health 0
 
 Regroup: 
+//upon researching will code will jump between all nova's 
 ubind @nova
 //arc1 needs to set its flag to 0 when the commander is there
 sensor flag @arc1 @flag

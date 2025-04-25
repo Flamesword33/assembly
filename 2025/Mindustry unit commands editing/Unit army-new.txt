@@ -4,6 +4,7 @@ sensor health @nova @health
 jump Unit_alive greaterThan health 0
 
 Regroup: 
+//this line needs to change for every unit except nova uggg
 ubind @nova
 //@nova needs to be rebound to whatever the commander is
 sensor flag @nova @flag
