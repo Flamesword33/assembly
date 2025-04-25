@@ -1,4 +1,14 @@
+jump Regroup equal @nova null
+sensor health @nova @health
+jump Unit_alive greaterThan health 0
+
 Regroup: 
+ubind @nova
+sensor flag @nova @flag
+sensor commanderX @nova @x
+sensor commanderY @nova @y
+ucontrol approach commanderX commanderY 2 0 0
+jump Regroup notEqual flag 0
 FindCommander:
 RallyAtCommander:
 FindTarget:
