@@ -1,0 +1,21 @@
+Com_start: ubind @nova
+sensor flag @unit @flag
+jump Com_start notEqual flag 0
+//set found to 0, never changed, messed up jumps
+uradar enemy ground 0 0 0 1 0
+//jump if null == 0... never happens
+uradar enemy 0 0 0 0 1 0
+//jump if null == 0... never happens
+sensor unit_x @unit @x
+sensor unit_y @unit @y
+ulocate building 0 0 @copper 0 0 0 0
+jump J02 always  //compared 0 to unalocated false which defaults to 0
+J02:ulocate building 0 0 @copper 0 0 0 building
+jump J03 always
+// ...lots of missed code here
+J03:ucontrol 0 0 0 0 0 0
+ucontrol pathfind 0 0 0 0 0
+end 
+
+
+//Program simply pathfinds to 0 0 0 0 0 0
