@@ -1,6 +1,4 @@
 //checks if you are dead and if so, regroups
-sensor arcX @arc1 @x
-sensor arcY @arc1 @y
 ubind @nova
 jump Regroup equal @unit null
 sensor health @unit @health
@@ -8,11 +6,13 @@ jump Unit_alive greaterThan health 0
 
 Regroup: 
 //arc1 needs to set its flag to 0 when the commander is there
-sensor flag @arc1 @flag
-//////////////////////////////////
-//SET REGOUP POINT TO ARC TURRET//
-ucontrol pathfind arcX arkY 0 0 0
-//////////////////////////////////
+sensor flag arc1 @flag
+////////////////////////////////
+//SET REGOUP POINT TO ARC SHOT//
+sensor arcX arc1 @shootX
+sensor arcY arc1 @shootY
+ucontrol move arcX arcY 0 0 0
+////////////////////////////////
 jump Regroup notEqual flag 0
 
 Unit_alive: 
@@ -35,7 +35,9 @@ Enemy_holding_still:
 ucontrol target 0 0 0 0 0
 write 0 cell2 0
 write 0 cell2 1
-ucontrol pathfind arcX arcY 0 0 0
+sensor arcX arc1 @shootX
+sensor arcY arc1 @shootY
+ucontrol move arcX arcY 0 0 0
 
 Enemy_moving: 
 set min_dist 24
