@@ -62,85 +62,85 @@ jump 64 always 0 0
 ubind @sei
 jump 64 always 0 0
 ubind @omura
-jump 70 equal @unit null
-jump 70 equal @unit first
+jump 72 equal @unit null
 sensor isDead @dead first
 jump 0 equal isDead 1
+jump 72 equal @unit first
 op add n n 1
-jump 69 greaterThan n 1
+jump 71 greaterThan n 1
 set first @unit
 jump 3 always 0 0
 write n cell1 i
-jump 74 equal i 29
+jump 76 equal i 29
 op add i i 1
 jump 1 always 0 0
 set i 0
 op mul tmp i 2
 op add @counter @counter tmp
 set s " Dagger"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Mace"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Fortress"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Scepter"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Reign"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Nova"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Pulsar"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Quasar"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Vela"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Corvus"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Crawler"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Atrax"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Spiroct"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Arkyid"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Toxopid"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Flare"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Horizon"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Zenith"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Antumbra"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Eclipse"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Mono"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Poly"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Mega"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Quad"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Oct"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Risso"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Minke"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Bryde"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Sei"
-jump 136 always 0 0
+jump 138 always 0 0
 set s " Omura"
 read c cell1 i
-jump 141 equal c 0
+jump 143 equal c 0
 print "\n"
 print c
 print s
 op add i i 1
-jump 75 lessThanEq i 29
+jump 77 lessThanEq i 29
 printflush message1
