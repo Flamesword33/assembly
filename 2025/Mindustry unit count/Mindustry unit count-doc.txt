@@ -1,146 +1,147 @@
-set i 0
-set n 0
+set unit_max 24
+set switch_length 29
+set unit_type_index 0
+For(unit_tally<switch_length):set unit_tally 0
 set first 0
-op mul tmp i 2
-op add @counter @counter tmp
+op mul tmp unit_type_index 2
+While(counting_units):op add @counter @counter tmp
 ubind @dagger
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @mace
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @fortress
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @scepter
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @reign
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @nova
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @pulsar
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @quasar
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @vela
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @corvus
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @crawler
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @atrax
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @spiroct
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @arkyid
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @toxopid
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @flare
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @horizon
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @zenith
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @antumbra
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @eclipse
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @mono
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @poly
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @mega
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @quad
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @oct
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @risso
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @minke
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @bryde
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @sei
-jump 64 always 0 0
+jump Break_switch1 always 0 0
 ubind @omura
-jump 72 equal @unit null
-sensor isDead @dead first
-jump 0 equal isDead 1
-jump 72 equal @unit first
-op add n n 1
-jump 71 greaterThan n 1
+Break_switch1:jump Unit_counted equal @unit null
+jump Unit_counted equal @unit first
+jump Unit_counted equal unit_tally unit_max
+op add unit_tally unit_tally 1
+jump If(unit_tally>1) greaterThan unit_tally 1
 set first @unit
-jump 3 always 0 0
-write n cell1 i
-jump 76 equal i 29
-op add i i 1
-jump 1 always 0 0
-set i 0
-op mul tmp i 2
+If(unit_tally>1):jump While(counting_units) always 0 0
+Unit_counted:write unit_tally cell1 unit_type_index
+jump All_counted equal unit_type_index switch_length
+op add unit_type_index unit_type_index 1
+jump For(unit_tally<switch_length) always 0 0
+All_counted:set unit_type_index 0
+Print_loop:op mul tmp unit_type_index 2
 op add @counter @counter tmp
-set s " Dagger"
-jump 138 always 0 0
-set s " Mace"
-jump 138 always 0 0
-set s " Fortress"
-jump 138 always 0 0
-set s " Scepter"
-jump 138 always 0 0
-set s " Reign"
-jump 138 always 0 0
-set s " Nova"
-jump 138 always 0 0
-set s " Pulsar"
-jump 138 always 0 0
-set s " Quasar"
-jump 138 always 0 0
-set s " Vela"
-jump 138 always 0 0
-set s " Corvus"
-jump 138 always 0 0
-set s " Crawler"
-jump 138 always 0 0
-set s " Atrax"
-jump 138 always 0 0
-set s " Spiroct"
-jump 138 always 0 0
-set s " Arkyid"
-jump 138 always 0 0
-set s " Toxopid"
-jump 138 always 0 0
-set s " Flare"
-jump 138 always 0 0
-set s " Horizon"
-jump 138 always 0 0
-set s " Zenith"
-jump 138 always 0 0
-set s " Antumbra"
-jump 138 always 0 0
-set s " Eclipse"
-jump 138 always 0 0
-set s " Mono"
-jump 138 always 0 0
-set s " Poly"
-jump 138 always 0 0
-set s " Mega"
-jump 138 always 0 0
-set s " Quad"
-jump 138 always 0 0
-set s " Oct"
-jump 138 always 0 0
-set s " Risso"
-jump 138 always 0 0
-set s " Minke"
-jump 138 always 0 0
-set s " Bryde"
-jump 138 always 0 0
-set s " Sei"
-jump 138 always 0 0
-set s " Omura"
-read c cell1 i
-jump 143 equal c 0
-print "\n"
-print c
-print s
-op add i i 1
-jump 77 lessThanEq i 29
+set unit_type " Dagger"
+jump Break_switch2 always 0 0
+set unit_type " Mace"
+jump Break_switch2 always 0 0
+set unit_type " Fortress"
+jump Break_switch2 always 0 0
+set unit_type " Scepter"
+jump Break_switch2 always 0 0
+set unit_type " Reign"
+jump Break_switch2 always 0 0
+set unit_type " Nova"
+jump Break_switch2 always 0 0
+set unit_type " Pulsar"
+jump Break_switch2 always 0 0
+set unit_type " Quasar"
+jump Break_switch2 always 0 0
+set unit_type " Vela"
+jump Break_switch2 always 0 0
+set unit_type " Corvus"
+jump Break_switch2 always 0 0
+set unit_type " Crawler"
+jump Break_switch2 always 0 0
+set unit_type " Atrax"
+jump Break_switch2 always 0 0
+set unit_type " Spiroct"
+jump Break_switch2 always 0 0
+set unit_type " Arkyid"
+jump Break_switch2 always 0 0
+set unit_type " Toxopid"
+jump Break_switch2 always 0 0
+set unit_type " Flare"
+jump Break_switch2 always 0 0
+set unit_type " Horizon"
+jump Break_switch2 always 0 0
+set unit_type " Zenith"
+jump Break_switch2 always 0 0
+set unit_type " Antumbra"
+jump Break_switch2 always 0 0
+set unit_type " Eclipse"
+jump Break_switch2 always 0 0
+set unit_type " Mono"
+jump Break_switch2 always 0 0
+set unit_type " Poly"
+jump Break_switch2 always 0 0
+set unit_type " Mega"
+jump Break_switch2 always 0 0
+set unit_type " Quad"
+jump Break_switch2 always 0 0
+set unit_type " Oct"
+jump Break_switch2 always 0 0
+set unit_type " Risso"
+jump Break_switch2 always 0 0
+set unit_type " Minke"
+jump Break_switch2 always 0 0
+set unit_type " Bryde"
+jump Break_switch2 always 0 0
+set unit_type " Sei"
+jump Break_switch2 always 0 0
+set unit_type " Omura"
+Break_switch2:read unit_count cell1 unit_type_index
+jump If(unit_count==0) equal unit_count 0
+print "\unit_count"
+print unit_count
+print unit_type
+If(unit_count==0):op add unit_type_index unit_type_index 1
+jump Print_loop lessThanEq unit_type_index switch_length
 printflush message1
