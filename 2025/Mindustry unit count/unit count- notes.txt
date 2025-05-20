@@ -1,0 +1,19 @@
+1. Plz explain lines 8-64 --> all are missed due to jump 64 always... HOLY S*** DUDE YOU MADE A SWITCH STATEMENT?!? Amazing!
+2. again line 80-137 --> code is never run... Mad lad implemented a switch. Wow!
+3. Line 69 "jump x greaterThan n 1 --> always jumps
+   Line 70 is never reached
+4. despite these missed lines of code, it still works? Idk, magic. --> not magic, science baby!
+5. Stops at Risso, also unable to spawn in Risso?
+
+Logic
+=====
+i:0
+n:1
+first:@dagger
+tmp:5
+@counter:5
+ubind @dagger
+
+memory cell:
+============
+[]
