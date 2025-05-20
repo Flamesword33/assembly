@@ -64,6 +64,8 @@ jump 64 always 0 0
 ubind @omura
 jump 70 equal @unit null
 jump 70 equal @unit first
+sensor isDead @dead first
+jump 0 equal isDead 1
 op add n n 1
 jump 69 greaterThan n 1
 set first @unit
