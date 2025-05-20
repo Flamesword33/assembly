@@ -25,7 +25,7 @@ Goals
 
 
 Unit army;
-1 rally at command
+1 rally at commander
 2 commander determines target location (army unit sensors just suck)
 3 approach target
 4 fire at target
@@ -33,7 +33,14 @@ Unit army;
 5 back away from target
 6 regroup at commander if no targets 
 
+//Working code to set rally location based on mouse
 ubind @dagger
 sensor arcX arc1 @shootX
 sensor arcY arc1 @shootY
 ucontrol move arcX arcY 0 0 0
+
+//Code to jump if hp bad
+sensor max_hp arc1 @maxHealth
+sensor hp arc1 @health
+op div hp_percent hp max_hp
+jump temp lessThanEq hp_percent 0.5

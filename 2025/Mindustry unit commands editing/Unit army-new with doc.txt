@@ -1,3 +1,16 @@
+function main(){
+    if(isenemy==false){
+        rally(commander)
+    }
+    elif(hp>0.5 && isenemy == true){
+        approachTarget();
+    }
+    else(hp<=0.5 && isenemy == true){
+        retreat();
+    }  
+}
+
+Main:
 ubind @dagger
 set commander nova1
 set retreat_dist 24
@@ -7,22 +20,32 @@ sensor comY commander @shootY
 sensor hp @unit @health
 sensor max_hp @unit @maxHealth
 uradar enemy ground any distance turret1 1 target
-jump 19 notEqual target null
+
+Detect_Enemy:
+jump Enemy_Found notEqual target null
 uradar enemy any any distance turret1 1 target
-jump 19 notEqual target null
+jump Enemy_Found notEqual target null
 ulocate building turret true @copper outx outy found target
-jump 19 notEqual target null
+jump Enemy_Found notEqual target null
 ulocate building core true @copper outx outy found target
-jump 19 notEqual target null
+jump Enemy_Found notEqual target null
+
+Rally:
 ucontrol target 0 0 0 0 0
 ucontrol move comX comY 0 0 0
 end
+
+Enemy_Found:
 sensor enemy_x target @x
 sensor enemy_y target @y
 op div hp_percent hp max_hp
-jump 26 lessThanEq hp_percent 0.5
+jump Retreat lessThanEq hp_percent 0.5
+
+ApproachTarget:
 ucontrol targetp target 1 1 0 0
 ucontrol approach enemy_x enemy_y approach_dist 0 0
 end
+
+Retreat:
 ucontrol targetp target 1 1 0 0
 ucontrol approach enemy_x enemy_y retreat_dist 0 0
